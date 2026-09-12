@@ -17,6 +17,7 @@ export default {
       delimiters: ['', ''],
       preventAssignment: true,
     }),
-    terser({ compress: { evaluate: false } }),
+    // maxWorkers: 1 : le conteneur de build canner signale 0 CPU, et terser lance alors 0 worker et bloque
+    terser({ compress: { evaluate: false }, maxWorkers: 1 }),
   ],
 };
