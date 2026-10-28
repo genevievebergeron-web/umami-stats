@@ -138,3 +138,18 @@ docker compose up --force-recreate -d
 [linkedin-url]: https://linkedin.com/company/umami-software
 [discord-shield]: https://img.shields.io/badge/Discord--blue?style=social&logo=discord
 [discord-url]: https://discord.com/invite/4dz4zcXYrQ
+
+---
+
+## Rétention des données : site Régitex (25 mois)
+
+La politique de confidentialité de regitex.com annonce que les données d'audience « sont conservées 25 mois, puis supprimées ». Umami 3.3.1 n'a aucune rétention native : cette instance ajoute donc une purge, limitée au site Régitex (`352a3bc1-e204-45e8-b23e-ec2bc50a2b3d`, fixé dans le code). Aucun autre site de l'instance n'est touché.
+
+- **Route** : `GET` ou `POST /api/cron/retention`, protégée par la variable d'environnement `RETENTION_SECRET` (32 caractères minimum; sans elle, la route répond 503). Secret de préférence en `Authorization: Bearer …` (un `?secret=…` dans l'URL finit dans les journaux d'accès), sinon en `?secret=…`.
+- **Essai à blanc (par défaut)** : compte, table par table, les lignes antérieures à `now() - 25 mois`, sans rien supprimer.
+- **Écriture** : ajouter `&mode=write`. Tout se fait dans une seule transaction (tout ou rien) et la réponse donne le nombre de lignes supprimées par table.
+- **Tables couvertes** (un test échoue si une montée de version d'Umami ajoute une table liée à un site sans la classer) : `session_replay_saved`, `session_replay`, `heatmap_event`, `revenue`, `event_data` (y compris les lignes rattachées à un événement purgé), `session_data`, `session_link`, `website_event`, puis `session` (une session encore liée à des données récentes est gardée).
+- **Tâche cron canner** (Calcul → Tâches cron) : `https://<domaine Stats GB>/api/cron/retention?mode=write` avec l'en-tête `Authorization`, ou avec `&secret=…` si la tâche n'accepte pas d'en-tête, tous les jours à 4 h (`0 4 * * *`). Une exécution quotidienne garde au plus 25 mois et un jour. Une exécution mensuelle (`0 4 1 * *`) laisserait vivre une ligne jusqu'à 26 mois, et la première vraie purge tomberait le 1er décembre 2028, après l'échéance du 27 novembre 2028.
+- **Échéancier** : les données commencent le 27 octobre 2026. Jusqu'au 27 novembre 2028, chaque exécution doit afficher 0 partout, sauf lignes d'essai antérieures au 27 octobre 2026. Une réponse autre que 200 (503 : secret absent; 500 : erreur) veut dire que rien n'est purgé : la surveiller.
+- **Test** : `scripts/test-retention.sh` (Postgres local) applique les migrations, sème deux sites et vérifie que l'essai à blanc et l'écriture concordent et que l'autre site reste intact. Tests unitaires : `npx vitest run src/lib/retention.test.ts src/app/api/cron/retention`.
+- **Repli sans route** : dans l'Atelier de données canner, exécuter les requêtes de `src/lib/retention.ts` en remplaçant `$1` par l'identifiant du site et `$2` par `now() - interval '25 months'`.
