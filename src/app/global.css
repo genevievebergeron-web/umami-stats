@@ -24,6 +24,26 @@
   --gb-noir: #101820;
 }
 
+/* Fonds : papier en mode clair, noir en mode sombre (remplace les gris de react-zen) */
+html:root:not([data-theme="dark"]),
+html[data-theme="light"] {
+  --surface-base: #f8f5ee;
+  --surface-raised: #f8f5ee;
+  --surface-sunken: #f8f5ee;
+  --surface-overlay: #f8f5ee;
+  --surface-disabled: #f8f5ee;
+  --text-muted: #4d4542; /* taupe : le gris de react-zen tombe sous AA sur papier */
+}
+
+html[data-theme="dark"] {
+  --text-muted: #aca2a1; /* taupe-clair */
+  --surface-base: #101820;
+  --surface-raised: #101820;
+  --surface-sunken: #101820;
+  --surface-overlay: #101820;
+  --surface-disabled: #101820;
+}
+
 /* Titres en Fraunces 400 ([class] pour passer devant les utilitaires react-zen) */
 :is(h1, h2, h3, h4, h5, h6)[class] {
   font-family: var(--font-titre);
