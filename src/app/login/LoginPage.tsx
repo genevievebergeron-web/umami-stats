@@ -6,7 +6,7 @@ import { useLoginQuery } from '@/components/hooks';
 import { LoginForm } from './LoginForm';
 import { PropsWithChildren } from 'react';
 
-export function LoginPageWrapper({ children }: PropsWithChildren) {
+export function LoginPageWrapper({ children, branded }: PropsWithChildren<{ branded?: boolean }>) {
   const { user, isLoading } = useLoginQuery();
   const router = useRouter();
 
@@ -18,6 +18,10 @@ export function LoginPageWrapper({ children }: PropsWithChildren) {
 
   if (isLoading || user) {
     return <Loading placement="absolute" />;
+  }
+
+  if (branded) {
+    return <main className="gb-login">{children}</main>;
   }
 
   return (
@@ -35,7 +39,7 @@ export function LoginPageWrapper({ children }: PropsWithChildren) {
 
 export function LoginPage() {
   return (
-    <LoginPageWrapper>
+    <LoginPageWrapper branded>
       <LoginForm />
     </LoginPageWrapper>
   );

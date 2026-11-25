@@ -164,3 +164,79 @@ select:is(:-webkit-autofill, :autofill):focus {
     font-size: 12px;
   }
 }
+
+/* Page de connexion : codes du site (fond sapin, carte papier bordée, ombre rétro, étiquette safran) */
+.gb-login {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem;
+  background: #3b6060;
+  overflow: hidden;
+}
+
+.gb-login::before {
+  content: '';
+  position: absolute;
+  width: min(70vmin, 36rem);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: #bed3e5; /* ciel, fond seulement */
+  top: -12vmin;
+  right: -10vmin;
+}
+
+.gb-login .gb-carte {
+  position: relative;
+  --primary: #e39d37;
+  --primary-foreground: #101820;
+  width: min(100%, 24rem);
+  padding: clamp(1.5rem, 4vw, 2.25rem);
+  background: #f8f5ee;
+  color: #101820;
+  border: 2px solid #101820;
+  box-shadow: 5px 5px 0 #101820;
+}
+
+.gb-login .gb-carte form {
+  width: 100%;
+  min-width: 0 !important;
+}
+
+.gb-etiquette {
+  align-self: flex-start;
+  background: #e39d37;
+  color: #101820;
+  padding: 0.2em 0.5em 0.25em;
+  transform: rotate(-2.5deg);
+  font-weight: 500;
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.gb-login .gb-marque[class] {
+  align-self: flex-start;
+  margin: 0;
+  font-size: clamp(2.25rem, 7vw, 2.75rem);
+  line-height: 1;
+}
+
+.gb-accroche {
+  align-self: flex-start;
+  margin: -0.75rem 0 0.5rem;
+  color: #4d4542; /* taupe */
+  font-size: 1rem;
+}
+
+.gb-login .gb-carte button[type='submit'] {
+  box-shadow: 3px 3px 0 #101820;
+}
+
+.gb-login .gb-carte button[type='submit']:is(:hover, :focus-visible) {
+  background-color: #101820;
+  color: #f8f5ee;
+  box-shadow: 3px 3px 0 #e39d37;
+}
