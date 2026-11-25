@@ -11,7 +11,7 @@ export default function ({ children }) {
 
 export const metadata: Metadata = {
   title: {
-    template: '%s | Admin | Umami',
-    default: 'Admin | Umami',
+    template: '%s · Admin · Statistiques Geneviève Bergeron',
+    default: 'Admin · Statistiques Geneviève Bergeron',
   },
 };

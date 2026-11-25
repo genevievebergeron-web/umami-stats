@@ -1,7 +1,68 @@
+/* Marque Geneviève Bergeron (polices auto-hébergées, licences dans public/fonts) */
+@font-face {
+  font-family: "Satoshi";
+  src: url("/fonts/satoshi-variable.woff2") format("woff2");
+  font-weight: 300 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Fraunces";
+  src: url("/fonts/fraunces-var.woff2") format("woff2");
+  font-weight: 300 500;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
-  --font-family: var(--font-inter), sans-serif;
-  --primary: oklch(62.3% 0.214 259.815);
-  --primary-foreground: oklch(98.5% 0 0);
+  --font-family: "Satoshi", system-ui, sans-serif;
+  --font-titre: "Fraunces", Georgia, serif;
+  --primary: #e39d37; /* safran */
+  --primary-foreground: #101820; /* noir */
+  --gb-safran-survol: #c9852a;
+  --gb-noir: #101820;
+}
+
+/* Titres en Fraunces 400 ([class] pour passer devant les utilitaires react-zen) */
+:is(h1, h2, h3, h4, h5, h6)[class] {
+  font-family: var(--font-titre);
+  font-weight: 400;
+}
+
+/* Boutons carrés, graisse 500 */
+button[class],
+a[role="button"][class] {
+  border-radius: 0;
+}
+
+button[class].bg-primary,
+.\[\&\>button\]\:bg-primary > button {
+  font-weight: 500;
+  opacity: 1;
+}
+
+button[class].bg-primary:hover,
+.hover\:bg-primary:hover {
+  background-color: var(--gb-safran-survol);
+}
+
+/* Safran jamais en texte sur papier : noir en mode clair, safran permis sur fond sombre */
+.text-primary,
+.hover\:text-primary:hover,
+.focus\:text-primary:focus,
+.active\:text-primary:active {
+  color: var(--gb-noir);
+}
+
+[data-theme="dark"]
+  :is(
+    .text-primary,
+    .hover\:text-primary:hover,
+    .focus\:text-primary:focus,
+    .active\:text-primary:active
+  ) {
+  color: var(--primary);
 }
 
 html,

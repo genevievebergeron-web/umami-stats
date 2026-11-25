@@ -72,7 +72,7 @@ export function MobileNav() {
       </MobileMenuButton>
       <Row alignItems="center" justifyContent="center" flexGrow={1}>
         <IconLabel icon={<Logo />} style={{ width: 'auto' }}>
-          <Text weight="bold">umami</Text>
+          <Text style={{ fontFamily: 'var(--font-titre)', fontWeight: 400 }}>Geneviève.</Text>
         </IconLabel>
       </Row>
     </Grid>

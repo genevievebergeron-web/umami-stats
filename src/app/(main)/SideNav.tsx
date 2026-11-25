@@ -98,7 +98,7 @@ export function SideNav(props: any) {
         >
           {!isCollapsed && (
             <IconLabel icon={<Logo />}>
-              <Text weight="bold">umami</Text>
+              <Text style={{ fontFamily: 'var(--font-titre)', fontWeight: 400 }}>Geneviève.</Text>
             </IconLabel>
           )}
           <PanelButton />
