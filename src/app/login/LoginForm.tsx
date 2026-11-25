@@ -34,10 +34,18 @@ export function LoginForm() {
   };
 
   return (
-    <Column className="gb-carte" data-theme="light" justifyContent="center" alignItems="center" gap="6">
-      <span className="gb-etiquette">Statistiques</span>
-      <Heading className="gb-marque">Geneviève.</Heading>
-      <p className="gb-accroche">Bon retour. Les chiffres t’attendent.</p>
+    <Column
+      className="gb-carte"
+      data-theme="light"
+      justifyContent="center"
+      alignItems="center"
+      gap="6"
+    >
+      <span className="gb-etiquette">Collabo avec Gen</span>
+      <Heading className="gb-marque">
+        <span className="gb-surligne">Statistiques</span>
+      </Heading>
+      <p className="gb-accroche">Les chiffres de tes sites, sans témoins.</p>
       <Form onSubmit={handleSubmit} error={getErrorMessage(error)} style={{ minWidth: 300 }}>
         <FormField
           label={t(labels.username)}

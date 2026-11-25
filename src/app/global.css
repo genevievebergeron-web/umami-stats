@@ -240,3 +240,11 @@ select:is(:-webkit-autofill, :autofill):focus {
   color: #f8f5ee;
   box-shadow: 3px 3px 0 #e39d37;
 }
+
+.gb-surligne {
+  background: linear-gradient(transparent 55%, #e39d37 55%, #e39d37 92%, transparent 92%);
+  color: #101820;
+  padding: 0 0.15em;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
